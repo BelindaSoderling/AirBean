@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Work+Sans&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=yes" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>AirBean</title>
+</head>
+
+<body>
+  <div class="menu container">
+    <header>
+      <img class="leaves top" src="../assets/leaves-top.svg">
+      <button type="button" class="bag-btn">
+        <img src="../assets/bag.svg"></i>
+        <div class="bag-number hidden">0</div>
+      </button>
+    </header>
+  
+    <main class="menu main">
+      <h1>Meny</h1>
+      <div class="menu-items"></div>
+    </main>
+
+    <!-- POP UP FOR BAG ITEMS -->
+    <div class="bag-items hidden">
+      <h2>Din beställning</h2>
+      <div class="order"></div>
+      <button class="put-order-btn">Take my money!</button>
+    </div>
+
+    <footer>
+      <img class="leaves bottom" src="../assets/leaves-bottom.svg">
+    </footer>
+  </div>
+
+  <script type="module" src="menu.js"></script>
+</body>
+</html>

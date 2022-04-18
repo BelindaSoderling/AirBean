@@ -1,0 +1,1 @@
+export const goToPage = (location) => window.location = `/${location}`;
