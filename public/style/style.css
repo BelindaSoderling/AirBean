@@ -467,6 +467,10 @@ p, label {
   justify-content: center;
 }
 
+.login-div.hidden {
+  display: none !important;
+}
+
 .login-div .login-wrapper {
   width: 80%;
   height: 80%;
@@ -503,7 +507,8 @@ p, label {
 }
 
 .login-div form > div:last-of-type {
-  display: block;
+  flex-direction: row;
+  align-items: center;
 }
 
 .login-div input[type="text"], .login-div input[type="email"] {
@@ -511,11 +516,22 @@ p, label {
   border-radius: 6px;
   background-color: transparent;
   border: 1px solid var(--brown-color);
+  box-sizing: border-box;
+  padding: 1em;
 }
 
-.login-div input[type="radio"] {
+.login-div input[type="checkbox"] {
+  -webkit-appearance: none;
   background-color: transparent;
   border: 1px solid var(--brown-color);
+  border-radius: 50%;
+  margin-right: .5em;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.login-div input[type="checkbox"]:checked {
+  background-color: var(--brown-color);
 }
 
 .login-div .login-btn {
@@ -528,7 +544,8 @@ p, label {
   background-color: var(--brown-color);
   color: #fff;
   letter-spacing: 1px;
-  margin-top: 100%;
+  margin-top: 50%;
+  align-self: center;
 }
 
 

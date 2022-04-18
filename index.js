@@ -3,10 +3,12 @@ const app = express();
 const PORT = process.env.PORT || 1357;
 const api = require('./routes/api');
 const connection = require('./db/connection');
+const getUser = require('./middleware/getUser');
 
 connection();
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 // Frontend
 app.use(express.static('public'));
@@ -14,6 +16,9 @@ app.use(express.static('public/landing'));
 
 // Routes
 app.use('/api', api);
+
+// POST
+app.post('/api/user', getUser);
 
 // Listen
 app.listen(PORT, () => {

@@ -8,7 +8,14 @@ export const getUser = () => {
   return JSON.parse(user);
 }
 
-export const createLoginField = () => {
+export const setUser = (name, email) => {
+  sessionStorage.setItem('user', JSON.stringify({
+    name,
+    email
+  }));
+}
+
+export const createLoginField = (callback) => {
   const loginDiv = document.createElement('div');
   loginDiv.classList.add('login-div');
 
@@ -24,6 +31,8 @@ export const createLoginField = () => {
   text.classList.add('instructions');
 
   const form = document.createElement('form');
+  form.action = '/menu';
+  form.method = 'post';
 
   const nameDiv = document.createElement('div');
   const nameLabel = document.createElement('label');
@@ -32,6 +41,7 @@ export const createLoginField = () => {
   const nameInput = document.createElement('input');
   nameInput.type = 'text';
   nameInput.name = 'name';
+  nameInput.required = true;
   nameDiv.append(nameLabel, nameInput);
 
   const emailDiv = document.createElement('div');
@@ -41,11 +51,12 @@ export const createLoginField = () => {
   const emailInput = document.createElement('input');
   emailInput.type = 'email';
   emailInput.name = 'email';
+  emailInput.required = true;
   emailDiv.append(emailLabel, emailInput);
 
   const GDPRDiv = document.createElement('div');
   const GDPRInput = document.createElement('input');
-  GDPRInput.type = 'radio';
+  GDPRInput.type = 'checkbox';
   GDPRInput.name = 'gdpr';
   const GDPRLabel = document.createElement('label');
   GDPRLabel.for = 'gdpr';
@@ -56,6 +67,14 @@ export const createLoginField = () => {
   submit.type = 'submit';
   submit.innerText = 'Brew me a cup!';
   submit.classList.add('login-btn');
+
+  submit.addEventListener('click', e => {
+    e.preventDefault();
+    const name = nameInput.value;
+    const email = emailInput.value;
+    setUser(name, email);    
+    callback(name, email);
+  })
 
   form.append(nameDiv, emailDiv, GDPRDiv, submit);
 

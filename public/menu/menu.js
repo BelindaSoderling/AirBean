@@ -1,6 +1,7 @@
 import { createNav } from '../components/nav.js';
 import { addItemToCart, getNumberOfItems, getCart, removeItemFromCart } from '../components/cart.js';
-import { getLoginStatus, createLoginField } from '../components/login.js';
+import { getLoginStatus, createLoginField, getUser } from '../components/login.js';
+import { goToPage } from '../components/redirect.js';
 
 
 const menu = document.querySelector('.menu-items');
@@ -183,8 +184,30 @@ const createOrderEntry = (coffee, price, amount) => {
   return div;
 }
 
-const placeOrder = () => {
-  
+const placeOrder = (name, email) => {
+  const total = document.querySelector('.total-price').innerText.slice(0, -3);
+  const date = new Date();
+  const id = 'ABC123';
+
+  const order = {
+    id,
+    date,
+    total
+  };
+
+  // ID, DATE, TOTAL
+
+  fetch("/api/user", {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'}, 
+    body: JSON.stringify({
+      name,
+      email,
+      order
+    })
+  });
+
+  goToPage('status');
 };
 
 const showNumberOfBagItems = () => {
@@ -205,8 +228,15 @@ bagButton.addEventListener('click', e => {
 });
 
 placeOrderButton.addEventListener('click', e => {
+  const numberOfIems = getNumberOfItems();
+  if (numberOfIems === 0) return;
   const isLoggedIn = getLoginStatus();
-  isLoggedIn ? placeOrder() : createLoginField();
+  if (isLoggedIn) {
+    const user = getUser();
+    placeOrder(user.name, user.email);
+  } else {
+    createLoginField(placeOrder);
+  }
 });
 
 

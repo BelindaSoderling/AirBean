@@ -56,5 +56,5 @@ export const getCart = () => {
 
 
 export const clearCart = () => {
-  sessionStorage.clear();
+  sessionStorage.removeItem('cart');
 }
