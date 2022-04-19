@@ -1,5 +1,6 @@
 import { createNav } from '../components/nav.js';
-import { getUser } from '../components/login.js'
+import { getLoginStatus, getUser, createLoginField } from '../components/login.js'
+import { goToPage } from '../components/redirect.js';
 
 const orders = document.querySelector('.orders');
 const usernameField = document.querySelector('.username');
@@ -15,6 +16,9 @@ const getOrders = async () => {
 
   const response = await fetch(`../api/user?name=${name}&email=${email}`); 
   const data = await response.json();
+
+  if (data === null) { throw new Error()}
+
   const orders = data.orders;
   return orders;
 };
@@ -27,7 +31,7 @@ const createOrderCard = (id, date, total) => {
   const footer = document.createElement('div');
   footer.classList.add('footer-div');
 
-  const idText = document.createElement('h3');
+  const idText = document.createElement('p');
   idText.classList.add('id');
   idText.innerText = id;
 
@@ -61,7 +65,12 @@ const createOrderCard = (id, date, total) => {
 
 createNav();
 
-getOrders()
+const isLoggedIn = getLoginStatus();
+
+if (!isLoggedIn) {
+  createLoginField(goToPage, 'profile');
+} else {
+  getOrders()
   .then(data => {
     let total = 0;
 
@@ -74,12 +83,15 @@ getOrders()
     hr.classList.add('fat-line');
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');
-    const text = document.createElement('h3');
+    const text = document.createElement('p');
     text.classList.add('spent-text');
     text.innerText = 'Totalt spenderat';
-    const totalSpent = document.createElement('h3');
+    const totalSpent = document.createElement('p');
     totalSpent.classList.add('spent');
     totalSpent.innerText = total + ' kr';
     wrapper.append(text, totalSpent);
     orders.append(hr, wrapper);
+  }).catch(err => {
+    // Don't show anything if no orders can be found.
   })
+};

@@ -15,7 +15,7 @@ export const setUser = (name, email) => {
   }));
 }
 
-export const createLoginField = (callback) => {
+export const createLoginField = (callback, params) => {
   const loginDiv = document.createElement('div');
   loginDiv.classList.add('login-div');
 
@@ -73,7 +73,7 @@ export const createLoginField = (callback) => {
     const name = nameInput.value;
     const email = emailInput.value;
     setUser(name, email);    
-    callback(name, email);
+    callback(params);
   })
 
   form.append(nameDiv, emailDiv, GDPRDiv, submit);

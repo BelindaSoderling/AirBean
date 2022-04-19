@@ -31,7 +31,6 @@ const createEntry = (name, description, price) => {
     bagNumber.classList.remove('hidden');
     bagNumber.textContent++;
     const itemName = e.currentTarget.parentNode.id;
-    console.log(itemName);
     addItemToCart(itemName);
   })
 
@@ -188,15 +187,16 @@ const placeOrder = (name, email) => {
   clearCart();
   const total = parseInt(document.querySelector('.total-price').innerText.slice(0, -3));
   const date = new Date();
-  const id = 'ABC123';
+
+  const randomNumber = Math.floor(Math.random() * 9999999999);
+  const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  const id = '#AB' + randomNumber + randomLetter;
 
   const order = {
     id,
     date,
     total
   };
-
-  // ID, DATE, TOTAL
 
   fetch("/", {
     method: "POST",
@@ -236,7 +236,7 @@ placeOrderButton.addEventListener('click', e => {
     const user = getUser();
     placeOrder(user.name, user.email);
   } else {
-    createLoginField(placeOrder);
+    createLoginField(placeOrder, [user.name, user.email]);
   }
 });
 
