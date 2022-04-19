@@ -1,5 +1,5 @@
 import { createNav } from '../components/nav.js';
-import { addItemToCart, getNumberOfItems, getCart, removeItemFromCart } from '../components/cart.js';
+import { addItemToCart, getNumberOfItems, getCart, removeItemFromCart, clearCart } from '../components/cart.js';
 import { getLoginStatus, createLoginField, getUser } from '../components/login.js';
 import { goToPage } from '../components/redirect.js';
 
@@ -169,7 +169,7 @@ const createOrderEntry = (coffee, price, amount) => {
       number.innerText--;
       bagNumber.innerText--;
       itemPrice.innerText = price * number.innerText + ' kr';
-      let totalPriceStringElement = e.currentTarget.parentNode.parentNode.parentNode.parentNode.querySelector('.total-price');
+      let totalPriceStringElement = document.querySelector('.total-price');
       let totalPrice = parseInt(totalPriceStringElement.innerText.slice(0, -3));
       totalPrice -= price;
       totalPriceStringElement.innerText = totalPrice + ' kr';
@@ -185,7 +185,8 @@ const createOrderEntry = (coffee, price, amount) => {
 }
 
 const placeOrder = (name, email) => {
-  const total = document.querySelector('.total-price').innerText.slice(0, -3);
+  clearCart();
+  const total = parseInt(document.querySelector('.total-price').innerText.slice(0, -3));
   const date = new Date();
   const id = 'ABC123';
 
