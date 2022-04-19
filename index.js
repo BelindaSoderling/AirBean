@@ -3,7 +3,6 @@ const app = express();
 const PORT = process.env.PORT || 1357;
 const api = require('./routes/api');
 const connection = require('./db/connection');
-const getUser = require('./middleware/getUser');
 const saveOrder = require('./middleware/saveOrder');
 
 connection();
