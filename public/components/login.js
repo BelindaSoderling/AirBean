@@ -72,8 +72,14 @@ export const createLoginField = (callback, params) => {
     e.preventDefault();
     const name = nameInput.value;
     const email = emailInput.value;
-    setUser(name, email);    
-    callback(params);
+    setUser(name, email);
+    if (params == undefined) {
+      callback(name, email);
+    } else if (Array.isArray(params)) {
+      callback(...params);
+    } else {
+      callback(params)
+    }
   })
 
   form.append(nameDiv, emailDiv, GDPRDiv, submit);

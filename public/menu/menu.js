@@ -236,7 +236,7 @@ placeOrderButton.addEventListener('click', e => {
     const user = getUser();
     placeOrder(user.name, user.email);
   } else {
-    createLoginField(placeOrder, [user.name, user.email]);
+    createLoginField(placeOrder);
   }
 });
 
