@@ -72,6 +72,8 @@ export const createLoginField = (callback, params) => {
     e.preventDefault();
     const name = nameInput.value;
     const email = emailInput.value;
+    if (!email || !name) return;
+    
     setUser(name, email);
     if (params == undefined) {
       callback(name, email);
